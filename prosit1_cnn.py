@@ -20,7 +20,6 @@ Architecture Options:
 2. ResNet-18: Deep residual network with skip connections
 3. EfficientNet-B0: Efficient architecture with compound scaling
 
-Author: Based on the Model Design Document and CNN best practices
 Date: 2025
 """
 
@@ -83,66 +82,105 @@ class CINIC10_CNN(nn.Module):
         
         self.use_residual = use_residual
         
-        # First convolutional block
+        # First convolutional block: Extract low-level features
+        # Input: 3x32x32 -> Output: 64x16x16
+        # Two 3x3 convolutions capture edge and texture information
+        # BatchNorm stabilizes training, MaxPool reduces spatial dimensions
         self.conv1 = nn.Sequential(
+            # First conv layer: 3 input channels (RGB) -> 64 feature maps
             nn.Conv2d(3, 64, kernel_size=3, padding=1, bias=False),
-            nn.BatchNorm2d(64),
-            nn.ReLU(inplace=True),
+            nn.BatchNorm2d(64),  # Normalize activations for stable training
+            nn.ReLU(inplace=True),  # Non-linear activation
+            
+            # Second conv layer: Refine features within same spatial resolution
             nn.Conv2d(64, 64, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(64),
             nn.ReLU(inplace=True),
-            nn.MaxPool2d(kernel_size=2, stride=2),  # 32x32 -> 16x16
+            
+            # Downsample: 32x32 -> 16x16, reduce computational load
+            nn.MaxPool2d(kernel_size=2, stride=2),
+            
+            # Spatial dropout: Randomly zero out entire feature maps for regularization
             nn.Dropout2d(dropout)
         )
         
-        # Second convolutional block
+        # Second convolutional block: Mid-level feature extraction
+        # Input: 64x16x16 -> Output: 128x8x8
+        # Increased channel depth captures more complex patterns
         self.conv2 = nn.Sequential(
+            # Increase feature depth: 64 -> 128 channels
             nn.Conv2d(64, 128, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(128),
             nn.ReLU(inplace=True),
+            
+            # Refine features at current resolution
             nn.Conv2d(128, 128, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(128),
             nn.ReLU(inplace=True),
-            nn.MaxPool2d(kernel_size=2, stride=2),  # 16x16 -> 8x8
+            
+            # Further downsample: 16x16 -> 8x8
+            nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout2d(dropout)
         )
         
-        # Third convolutional block
+        # Third convolutional block: High-level feature extraction
+        # Input: 128x8x8 -> Output: 256x4x4
+        # Captures object parts and semantic information
         self.conv3 = nn.Sequential(
+            # Double feature depth: 128 -> 256 channels
             nn.Conv2d(128, 256, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(256),
             nn.ReLU(inplace=True),
+            
+            # Learn complex feature combinations
             nn.Conv2d(256, 256, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(256),
             nn.ReLU(inplace=True),
-            nn.MaxPool2d(kernel_size=2, stride=2),  # 8x8 -> 4x4
+            
+            # Downsample: 8x8 -> 4x4
+            nn.MaxPool2d(kernel_size=2, stride=2),
             nn.Dropout2d(dropout)
         )
         
-        # Fourth convolutional block
+        # Fourth convolutional block: Abstract feature extraction
+        # Input: 256x4x4 -> Output: 512x1x1
+        # Captures high-level semantic concepts for classification
         self.conv4 = nn.Sequential(
+            # Maximum feature depth: 256 -> 512 channels
             nn.Conv2d(256, 512, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(512),
             nn.ReLU(inplace=True),
+            
+            # Final feature refinement
             nn.Conv2d(512, 512, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(512),
             nn.ReLU(inplace=True),
-            nn.AdaptiveAvgPool2d((1, 1))  # Global average pooling
+            
+            # Global Average Pooling: 4x4 -> 1x1
+            # Reduces overfitting compared to fully connected layers
+            # Each of 512 channels becomes a single value
+            nn.AdaptiveAvgPool2d((1, 1))
         )
         
-        # Residual connection layers (1x1 convolutions for dimension matching)
+        # Residual connection layers for gradient flow improvement
+        # 1x1 convolutions match dimensions between blocks for skip connections
+        # Helps with vanishing gradient problem in deeper networks
         if use_residual:
+            # Match dimensions: 64 -> 128 channels, downsample 2x
             self.residual1 = nn.Conv2d(64, 128, kernel_size=1, stride=2, bias=False)
+            # Match dimensions: 128 -> 256 channels, downsample 2x
             self.residual2 = nn.Conv2d(128, 256, kernel_size=1, stride=2, bias=False)
+            # Match dimensions: 256 -> 512 channels, downsample 2x
             self.residual3 = nn.Conv2d(256, 512, kernel_size=1, stride=2, bias=False)
         
-        # Classification head
+        # Classification head: Convert features to class predictions
+        # Input: 512 features -> Output: num_classes logits
         self.classifier = nn.Sequential(
-            nn.Dropout(dropout),
-            nn.Linear(512, num_classes)
+            nn.Dropout(dropout),  # Final regularization before classification
+            nn.Linear(512, num_classes)  # Linear transformation to class scores
         )
         
-        # Initialize weights
+        # Initialize network weights using best practices
         self._initialize_weights()
     
     def _initialize_weights(self):
@@ -159,39 +197,75 @@ class CINIC10_CNN(nn.Module):
     
     def forward(self, x):
         """
-        Forward pass through the network.
+        Forward pass through the CNN network with detailed feature extraction.
+        
+        The network processes images through four convolutional blocks with
+        progressively increasing feature depth and decreasing spatial resolution.
+        Optional residual connections help with gradient flow in deeper layers.
+        
+        Feature extraction hierarchy:
+        1. Low-level: Edges, textures, simple patterns
+        2. Mid-level: Object parts, shapes, local structures  
+        3. High-level: Object components, semantic patterns
+        4. Abstract: Class-specific features for classification
         
         Args:
-            x (torch.Tensor): Input tensor of shape (batch_size, 3, 32, 32)
+            x (torch.Tensor): Input batch of images, shape (batch_size, 3, 32, 32)
+                             Values should be normalized to [-1, 1] or [0, 1] range
             
         Returns:
-            torch.Tensor: Output logits of shape (batch_size, num_classes)
+            torch.Tensor: Raw class logits, shape (batch_size, num_classes)
+                         Apply softmax for probabilities: F.softmax(logits, dim=1)
         """
-        # First block
-        out1 = self.conv1(x)  # (B, 64, 16, 16)
+        # First convolutional block: Extract low-level features
+        # Input: (B, 3, 32, 32) -> Output: (B, 64, 16, 16)
+        # Captures edges, corners, basic textures
+        out1 = self.conv1(x)
         
-        # Second block with optional residual connection
-        out2 = self.conv2(out1)  # (B, 128, 8, 8)
+        # Second convolutional block: Mid-level feature extraction
+        # Input: (B, 64, 16, 16) -> Output: (B, 128, 8, 8)
+        # Combines low-level features into more complex patterns
+        out2 = self.conv2(out1)
+        
+        # Optional residual connection: Helps gradient flow and feature reuse
+        # Allows network to learn identity mapping if needed
         if self.use_residual:
-            residual1 = self.residual1(out1)  # (B, 128, 8, 8)
+            # Project out1 to match out2 dimensions: (B, 64, 16, 16) -> (B, 128, 8, 8)
+            residual1 = self.residual1(out1)
+            # Element-wise addition combines direct and processed features
             out2 = out2 + residual1
         
-        # Third block with optional residual connection
-        out3 = self.conv3(out2)  # (B, 256, 4, 4)
+        # Third convolutional block: High-level feature extraction  
+        # Input: (B, 128, 8, 8) -> Output: (B, 256, 4, 4)
+        # Captures object parts and semantic structures
+        out3 = self.conv3(out2)
+        
+        # Second residual connection for deeper gradient flow
         if self.use_residual:
-            residual2 = self.residual2(out2)  # (B, 256, 4, 4)
+            # Project out2 to match out3 dimensions: (B, 128, 8, 8) -> (B, 256, 4, 4)
+            residual2 = self.residual2(out2)
             out3 = out3 + residual2
         
-        # Fourth block with optional residual connection
-        out4 = self.conv4(out3)  # (B, 512, 1, 1)
+        # Fourth convolutional block: Abstract feature extraction
+        # Input: (B, 256, 4, 4) -> Output: (B, 512, 1, 1)
+        # Global average pooling creates class-specific feature representations
+        out4 = self.conv4(out3)
+        
+        # Final residual connection with adaptive pooling
         if self.use_residual:
-            # Adaptive pooling for residual connection
+            # Project and pool out3 to match out4: (B, 256, 4, 4) -> (B, 512, 1, 1)
             residual3 = F.adaptive_avg_pool2d(self.residual3(out3), (1, 1))
             out4 = out4 + residual3
         
-        # Flatten and classify
-        out = out4.view(out4.size(0), -1)  # (B, 512)
-        out = self.classifier(out)  # (B, num_classes)
+        # Flatten feature maps for classification
+        # Convert (B, 512, 1, 1) -> (B, 512)
+        # Each sample now represented by 512-dimensional feature vector
+        out = out4.view(out4.size(0), -1)
+        
+        # Classification layer: Map features to class scores
+        # Input: (B, 512) -> Output: (B, num_classes)
+        # Higher scores indicate higher confidence for that class
+        out = self.classifier(out)
         
         return out
 

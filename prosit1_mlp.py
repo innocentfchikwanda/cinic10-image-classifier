@@ -19,7 +19,6 @@ Dataset: CINIC-10 (32x32 RGB images, 10 classes, ~270k images)
 Architecture: Feedforward MLP with configurable hidden layers
 Regularization: Dropout, L1/L2 penalties, early stopping
 
-Author: Based on the Model Design Document
 Date: 2025
 """
 
