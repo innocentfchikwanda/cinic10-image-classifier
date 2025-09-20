@@ -11,7 +11,7 @@ export interface ApiResponse {
   model?: string;
 }
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = process.env.VITE_API_URL || 'https://cinic10-backend-api.onrender.com/api';
 
 export async function classifyImage(file: File): Promise<{
   results: ClassificationResult[];
