@@ -35,7 +35,8 @@ class FeedforwardNet(nn.Module):
         self.fc3 = nn.Linear(512, 256)     # third hidden layer
         self.fc4 = nn.Linear(256, num_classes)  # output layer
 
-    def forward_net(self, x):
+    def forward(self, x):
+        x = x.view(x.size(0), -1)  # Flatten the input
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = F.relu(self.fc3(x))
@@ -195,7 +196,7 @@ async def predict(file: UploadFile = File(...)) -> Dict[str, Any]:
     try:
         inference_start = time.time()
         with torch.no_grad():
-            logits = model.forward_net(x)
+            logits = model(x)
             probs = torch.softmax(logits, dim=1).squeeze(0).cpu().numpy()
         inference_time = time.time() - inference_start
             
