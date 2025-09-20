@@ -21,3 +21,6 @@ Epoch 20/50 Train loss=1.6692, acc=0.3922 Val loss=1.5911, acc=0.4228 lr=0.00250
 Epoch 21/50 Train loss=1.6563, acc=0.3982 Val loss=1.5821, acc=0.4269 lr=0.00250
 Epoch 22/50 Train loss=1.6434, acc=0.4029 Val loss=1.5751, acc=0.4282 lr=0.00250
 Epoch 23/50 Train loss=1.6418, acc=0.4033 Val loss=1.5742, acc=0.4285 lr=0.00250
+Epoch 24/50 Train loss=1.6392, acc=0.4034 Val loss=1.5734, acc=0.4292 lr=0.00250
+Epoch 25/50 Train loss=1.6362, acc=0.4072 Val loss=1.5691, acc=0.4296 lr=0.00250
+Epoch 26/50 Train loss=1.6298, acc=0.4073 Val loss=1.5652, acc=0.4330 lr=0.00250
