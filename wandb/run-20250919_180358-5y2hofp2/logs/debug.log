@@ -1,0 +1,31 @@
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_setup.py:_flush():81] Current SDK version is 0.22.0
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_setup.py:_flush():81] Configure stats pid to 92502
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_setup.py:_flush():81] Loading settings from /Users/innocentchikwanda/.config/wandb/settings
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_setup.py:_flush():81] Loading settings from /Users/innocentchikwanda/Desktop/Grad School/Deep Learning/Prosit1/wandb/settings
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_init.py:setup_run_log_directory():686] Logging user logs to /Users/innocentchikwanda/Desktop/Grad School/Deep Learning/Prosit1/wandb/run-20250919_180358-5y2hofp2/logs/debug.log
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_init.py:setup_run_log_directory():687] Logging internal logs to /Users/innocentchikwanda/Desktop/Grad School/Deep Learning/Prosit1/wandb/run-20250919_180358-5y2hofp2/logs/debug-internal.log
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_init.py:monkeypatch_ipython():605] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x105dd6d60>
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_init.py:init():813] calling init triggers
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_init.py:init():818] wandb.init called with sweep_config: {}
+config: {'batch_size': 64, 'lr': 0.01, 'scheduler': 'Plateau', 'weight_decay': 0.0, 'momentum': 0.9, 'epochs': 20, 'l1_lambda': 0.0, 'patience': 6, 'model': 'FeedForwardMLP', 'hidden_sizes': [2048, 1024, 512, 256], 'dropout': 0.5, '_wandb': {}}
+2025-09-19 18:03:58,663 INFO    MainThread:92502 [wandb_init.py:init():861] starting backend
+2025-09-19 18:03:58,888 INFO    MainThread:92502 [wandb_init.py:init():864] sending inform_init request
+2025-09-19 18:03:58,909 INFO    MainThread:92502 [wandb_init.py:init():872] backend started and connected
+2025-09-19 18:03:58,915 INFO    MainThread:92502 [wandb_run.py:_label_probe_notebook():1330] probe notebook
+2025-09-19 18:03:58,915 INFO    MainThread:92502 [wandb_init.py:init():942] updated telemetry
+2025-09-19 18:03:58,917 INFO    MainThread:92502 [wandb_init.py:init():966] communicating run to backend with 90.0 second timeout
+2025-09-19 18:03:59,799 INFO    MainThread:92502 [wandb_init.py:init():1017] starting run threads in backend
+2025-09-19 18:03:59,861 INFO    MainThread:92502 [wandb_run.py:_console_start():2506] atexit reg
+2025-09-19 18:03:59,861 INFO    MainThread:92502 [wandb_run.py:_redirect():2354] redirect: wrap_raw
+2025-09-19 18:03:59,861 INFO    MainThread:92502 [wandb_run.py:_redirect():2423] Wrapping output streams.
+2025-09-19 18:03:59,861 INFO    MainThread:92502 [wandb_run.py:_redirect():2446] Redirects installed.
+2025-09-19 18:03:59,863 INFO    MainThread:92502 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-19 18:15:07,320 INFO    MainThread:92502 [wandb_run.py:_finish():2272] finishing run nimbus-neuron/cinic10-mlp/5y2hofp2
+2025-09-19 18:15:07,323 INFO    MainThread:92502 [jupyter.py:save_history():480] not saving jupyter history
+2025-09-19 18:15:07,323 INFO    MainThread:92502 [jupyter.py:save_ipynb():404] not saving jupyter notebook
+2025-09-19 18:15:07,323 INFO    MainThread:92502 [wandb_init.py:_jupyter_teardown():590] cleaning up jupyter logic
+2025-09-19 18:15:07,323 INFO    MainThread:92502 [wandb_run.py:_atexit_cleanup():2471] got exitcode: 0
+2025-09-19 18:15:07,324 INFO    MainThread:92502 [wandb_run.py:_restore():2453] restore
+2025-09-19 18:15:07,324 INFO    MainThread:92502 [wandb_run.py:_restore():2459] restore done
+2025-09-19 18:15:08,986 INFO    MainThread:92502 [wandb_run.py:_footer_sync_info():3867] logging synced files

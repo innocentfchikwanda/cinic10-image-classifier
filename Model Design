@@ -1,0 +1,146 @@
+# CINIC-10 Feedforward MLP: Design Document
+
+## 1. Overview
+This project trains a feedforward multilayer perceptron (MLP) on the CINIC-10 dataset for multi-class image classification (10 classes, RGB, 32x32). The pipeline is Colab-ready and instrumented for both TensorBoard and Weights & Biases (W&B) logging. The workflow follows these phases:
+
+- Data exploration
+- Preprocessing and augmentation
+- 30% small-subset creation for rapid grid search
+- Model training with L1/L2 regularization, dropout, early stopping
+- Evaluation and metrics logging (accuracy, precision, recall, F1, confusion matrices)
+- Final training on combined train+valid
+- Testing on the held-out test split
+- Optional production training on all available data
+
+Project entry point: `prosit1.py`.
+
+## 2. Dataset: CINIC-10
+- Structure: `train/`, `valid/`, `test/` with 10 class subfolders.
+- Total images: ~270,000 (90k per split, 10k/class/split).
+- Image size: 32x32 RGB.
+- Reference: https://www.kaggle.com/datasets/mengcius/cinic10
+
+### 2.1 Data Exploration
+Function: `explore_dataset(base_dir)` scans the directory structure to count classes and per-class image counts for each split. This validates dataset integrity and provides a quick summary.
+
+## 3. Preprocessing and Augmentation
+- Normalization uses CINIC-10 statistics:
+  - MEAN = [0.47889522, 0.47227842, 0.43047404]
+  - STD  = [0.24205776, 0.23828046, 0.25874835]
+- Training-time augmentations: horizontal flip, small rotation (±15°), and color jitter. This improves generalization by increasing data diversity.
+- Evaluation transforms: tensor conversion + normalization only.
+
+## 4. Subset Strategy and Data Splits
+- A 30% random subset of the training set is created for quicker experimentation (`SMALL_SUBSET_FRAC = 0.30`).
+- This subset is split evenly into three parts (train/eval/test), each approximately 10% of the original training set, to support rapid grid search and model iteration.
+- Final model training uses the full train+valid data (optionally with augmentation) and is evaluated on the official test split.
+
+## 5. Dataloaders
+- Small subset loaders: `make_dataloaders(batch_size)` returns train/eval/test loaders for the 30% subset.
+- Final combined loader: `make_full_train_loader(batch_size, augment=True)` concatenates train and valid (with or without augmentations) for final training.
+- Separate loaders are created for the original `valid` and `test` splits for evaluation.
+
+## 6. Model Architecture (FeedForwardMLP)
+- Input: flattened 3x32x32 = 3072-dimensional vector per image.
+- Hidden layers: configurable (default `[2048, 1024, 512, 256]`).
+- Activation: ReLU.
+- Regularization: Dropout (default p=0.5).
+- Output: Linear layer producing logits for 10 classes.
+- Softmax is implicitly applied inside `nn.CrossEntropyLoss`.
+
+## 7. Loss, Metrics, and Regularization
+- Loss: `nn.CrossEntropyLoss`.
+- Metrics: accuracy, precision, recall, and F1 (weighted average).
+- Confusion matrices are generated for evaluation splits.
+- L2: applied via optimizer weight decay.
+- L1: optional `l1_penalty(model)` added to loss when `l1_lambda > 0`.
+- Dropout: reduces co-adaptation of neurons, aiding generalization.
+
+## 8. Optimizer and Learning Rate
+- Optimizer: Stochastic Gradient Descent (SGD) with momentum.
+- Defaults: learning rate is chosen via grid search; momentum=0.9; weight decay via grid.
+- Learning rate scheduling: not applied in the baseline; learning rate is tracked and logged for plots.
+
+## 9. Early Stopping
+- Implemented via patience on validation loss within `run_training`.
+- The best model weights are restored after training halts due to lack of improvement.
+
+## 10. Hyperparameter Search (Grid Search)
+- Parameters explored:
+  - Learning rate: `[0.1, 0.01, 0.001]`
+  - Weight decay: `[5e-4, 1e-4, 0.0]`
+  - Batch size: `[64, 128]`
+- Short training runs (e.g., 12 epochs, patience=4) to minimize time.
+- Selection criterion: best validation accuracy.
+- Best hyperparameters are stored in `best_hyperparams.json` under `OUT_DIR`.
+
+## 11. Training Phases
+### 11.1 Small Subset Training
+- Use the best hyperparameters from grid search.
+- Train on the small subset; evaluate on its held-out small test slice.
+- Save model: `model_small_best.pth`.
+
+### 11.2 Final Combined Training
+- Train on concatenated `train + valid` (augmentation optional) with chosen batch size.
+- Validate on the original `valid` loader during training.
+- Test on the official `test` set after training.
+- Save model: `final_model_combined.pth`.
+- Save summary: `training_summary.json` (small-test and final-test metrics).
+
+### 11.3 Optional Production Training
+- Optionally train on all labeled data (train+valid+test) to produce a final production model.
+- Note: This eliminates a true held-out test set for evaluation.
+
+## 12. Experiment Tracking
+### 12.1 TensorBoard
+- Scalars: training and validation loss, accuracy, and learning rate.
+- Logs stored under `OUT_DIR/runs/`.
+
+### 12.2 Weights & Biases (W&B)
+- Config logged: batch size, learning rate, momentum, weight decay, epochs, l1_lambda, patience, model details.
+- Per-epoch metrics: training/validation loss and accuracy; learning rate.
+- Evaluation metrics: loss, accuracy, precision, recall, F1; confusion matrices as images.
+- Run summary updated with small-test and final-test metrics.
+- Set the project via `WANDB_PROJECT` environment variable or modify `wandb_project` in code.
+- For Colab, optional `wandb_api` can be provided via `google.colab.userdata`.
+
+## 13. Key Variables and Functions (by module `prosit1.py`)
+- Paths and Config:
+  - `FOLDER_PATH`, `DATA_DIR`, `OUT_DIR`, `wandb_project`.
+- Transforms:
+  - `train_transform_aug`, `eval_transform`, `MEAN`, `STD`.
+- Datasets and Loaders:
+  - `train_ds`, `valid_ds`, `test_ds`, `make_dataloaders()`, `make_full_train_loader()`.
+- Model and Regularization:
+  - `FeedForwardMLP`, `l1_penalty()`.
+- Training/Evaluation:
+  - `run_training()`, `evaluate()`, `EarlyStopper` (available), `train_epoch` (utility unused in main flow).
+- Hyperparameters:
+  - `param_grid`, `grid_config`, `final_cfg`.
+- Artifacts:
+  - `best_hyperparams.json`, `model_small_best.pth`, `final_model_combined.pth`, `training_summary.json`, TensorBoard runs directory.
+
+## 14. Reproducibility and Seeds
+- `random.seed(42)` is used for subset shuffling.
+- Potential future improvement: set `numpy` and `torch` seeds and control `torch.backends.cudnn` flags for full determinism.
+
+## 15. Limitations and Future Work
+- An MLP is a strong baseline but generally underperforms CNNs on images. Consider CNNs (e.g., ResNet, EfficientNet) for better accuracy.
+- Add learning rate schedulers (Cosine Annealing, OneCycleLR) and/or warmup.
+- Consider mixed-precision training (`torch.cuda.amp`) for speed.
+- Perform k-fold or repeated hold-out validation.
+- Explore more robust augmentation and regularization (Cutout, Mixup, label smoothing).
+- Class weighting or focal loss if significant class imbalance is observed (unlikely in CINIC-10, but validate with exploration output).
+
+## 16. How to Run (Colab)
+1. Mount Drive and install dependencies (in separate cells):
+   - `%pip install torch torchvision tensorboard matplotlib scikit-learn seaborn wandb`
+   - `from google.colab import drive; drive.mount('/content/drive')`
+2. Adjust `FOLDER_PATH` to your CINIC-10 location.
+3. Optionally set `WANDB_PROJECT` and provide `wandb_api` via Colab User Data.
+4. Run the cells in order. Monitor TensorBoard and W&B dashboards.
+5. Review saved artifacts under `OUT_DIR`.
+
+---
+This document can be expanded with experiment notes, decisions, and results as the project evolves.
+

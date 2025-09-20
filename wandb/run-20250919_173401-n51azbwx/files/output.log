@@ -1,0 +1,11 @@
+Epoch 1/20 Train loss=3.2015, acc=0.1042 Val loss=2.3040, acc=0.0998 lr=0.01000
+Epoch 2/20 Train loss=2.3445, acc=0.1004 Val loss=2.3046, acc=0.0948 lr=0.01000
+Epoch 3/20 Train loss=2.3045, acc=0.0979 Val loss=2.3044, acc=0.1007 lr=0.01000
+Epoch 4/20 Train loss=2.3104, acc=0.0941 Val loss=2.3045, acc=0.1001 lr=0.01000
+Epoch 5/20 Train loss=2.3692, acc=0.1023 Val loss=2.3041, acc=0.1002 lr=0.01000
+Epoch 6/20 Train loss=2.3558, acc=0.1003 Val loss=2.3050, acc=0.0948 lr=0.01000
+Epoch 7/20 Train loss=2.3914, acc=0.1018 Val loss=2.3038, acc=0.1001 lr=0.01000
+Epoch 8/20 Train loss=2.3906, acc=0.1016 Val loss=2.3038, acc=0.1009 lr=0.01000
+Epoch 9/20 Train loss=2.3359, acc=0.0946 Val loss=2.3040, acc=0.0948 lr=0.01000
+Epoch 10/20 Train loss=2.3155, acc=0.0972 Val loss=2.3042, acc=0.0948 lr=0.00500
+Epoch 11/20 Train loss=2.3083, acc=0.1024 Val loss=2.3036, acc=0.1009 lr=0.00500

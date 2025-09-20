@@ -1,0 +1,13 @@
+node_modules
+.git
+.gitignore
+README.md
+.env
+.venv
+__pycache__
+*.pyc
+.DS_Store
+frontend_clean/node_modules
+frontend_clean/.git
+Elegant Image Classification App
+frontend

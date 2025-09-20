@@ -1,0 +1,62 @@
+Epoch 1/50 Train loss=1.9368, acc=0.2843 Val loss=1.7749, acc=0.3558 lr=0.01000
+Epoch 2/50 Train loss=1.8150, acc=0.3394 Val loss=1.6963, acc=0.3799 lr=0.01000
+Epoch 3/50 Train loss=1.7797, acc=0.3546 Val loss=1.6959, acc=0.3884 lr=0.01000
+Epoch 4/50 Train loss=1.7619, acc=0.3637 Val loss=1.6784, acc=0.3976 lr=0.01000
+Epoch 5/50 Train loss=1.7472, acc=0.3681 Val loss=1.6719, acc=0.4001 lr=0.01000
+Epoch 6/50 Train loss=1.7373, acc=0.3718 Val loss=1.6479, acc=0.4044 lr=0.01000
+Epoch 7/50 Train loss=1.7338, acc=0.3738 Val loss=1.6447, acc=0.4104 lr=0.01000
+Epoch 8/50 Train loss=1.7279, acc=0.3784 Val loss=1.6457, acc=0.4094 lr=0.01000
+Epoch 9/50 Train loss=1.7233, acc=0.3787 Val loss=1.6539, acc=0.4082 lr=0.01000
+Epoch 10/50 Train loss=1.7193, acc=0.3810 Val loss=1.6651, acc=0.4018 lr=0.00500
+Epoch 11/50 Train loss=1.6753, acc=0.3964 Val loss=1.5960, acc=0.4304 lr=0.00500
+Epoch 12/50 Train loss=1.6582, acc=0.4041 Val loss=1.5870, acc=0.4325 lr=0.00500
+Epoch 13/50 Train loss=1.6470, acc=0.4070 Val loss=1.5845, acc=0.4349 lr=0.00500
+Epoch 14/50 Train loss=1.6384, acc=0.4111 Val loss=1.5683, acc=0.4421 lr=0.00500
+Epoch 15/50 Train loss=1.6311, acc=0.4140 Val loss=1.5634, acc=0.4440 lr=0.00500
+Epoch 16/50 Train loss=1.6252, acc=0.4172 Val loss=1.5466, acc=0.4473 lr=0.00500
+Epoch 17/50 Train loss=1.6235, acc=0.4163 Val loss=1.5495, acc=0.4494 lr=0.00500
+Epoch 18/50 Train loss=1.6177, acc=0.4185 Val loss=1.5390, acc=0.4526 lr=0.00500
+Epoch 19/50 Train loss=1.6115, acc=0.4211 Val loss=1.5211, acc=0.4577 lr=0.00500
+Epoch 20/50 Train loss=1.6060, acc=0.4234 Val loss=1.5338, acc=0.4556 lr=0.00250
+Epoch 21/50 Train loss=1.5858, acc=0.4299 Val loss=1.5159, acc=0.4616 lr=0.00250
+Epoch 22/50 Train loss=1.5749, acc=0.4359 Val loss=1.5149, acc=0.4637 lr=0.00250
+Epoch 23/50 Train loss=1.5686, acc=0.4376 Val loss=1.5019, acc=0.4658 lr=0.00250
+Epoch 24/50 Train loss=1.5618, acc=0.4389 Val loss=1.4972, acc=0.4655 lr=0.00250
+Epoch 25/50 Train loss=1.5597, acc=0.4402 Val loss=1.4930, acc=0.4700 lr=0.00250
+Epoch 26/50 Train loss=1.5570, acc=0.4418 Val loss=1.4932, acc=0.4710 lr=0.00250
+Epoch 27/50 Train loss=1.5502, acc=0.4446 Val loss=1.4876, acc=0.4704 lr=0.00250
+Epoch 28/50 Train loss=1.5487, acc=0.4452 Val loss=1.4757, acc=0.4741 lr=0.00250
+Epoch 29/50 Train loss=1.5457, acc=0.4461 Val loss=1.4751, acc=0.4741 lr=0.00250
+Epoch 30/50 Train loss=1.5411, acc=0.4484 Val loss=1.4665, acc=0.4785 lr=0.00125
+Epoch 31/50 Train loss=1.5318, acc=0.4514 Val loss=1.4627, acc=0.4797 lr=0.00125
+Epoch 32/50 Train loss=1.5222, acc=0.4545 Val loss=1.4528, acc=0.4826 lr=0.00125
+Epoch 33/50 Train loss=1.5181, acc=0.4562 Val loss=1.4543, acc=0.4834 lr=0.00125
+Epoch 34/50 Train loss=1.5165, acc=0.4574 Val loss=1.4490, acc=0.4815 lr=0.00125
+Epoch 35/50 Train loss=1.5160, acc=0.4574 Val loss=1.4458, acc=0.4859 lr=0.00125
+Epoch 36/50 Train loss=1.5122, acc=0.4575 Val loss=1.4442, acc=0.4841 lr=0.00125
+Epoch 37/50 Train loss=1.5124, acc=0.4584 Val loss=1.4438, acc=0.4865 lr=0.00125
+Epoch 38/50 Train loss=1.5087, acc=0.4605 Val loss=1.4433, acc=0.4867 lr=0.00125
+Epoch 39/50 Train loss=1.5057, acc=0.4606 Val loss=1.4339, acc=0.4890 lr=0.00125
+Epoch 40/50 Train loss=1.5048, acc=0.4611 Val loss=1.4403, acc=0.4885 lr=0.00063
+Epoch 41/50 Train loss=1.4984, acc=0.4628 Val loss=1.4292, acc=0.4911 lr=0.00063
+Epoch 42/50 Train loss=1.4965, acc=0.4640 Val loss=1.4260, acc=0.4920 lr=0.00063
+Epoch 43/50 Train loss=1.4940, acc=0.4649 Val loss=1.4249, acc=0.4923 lr=0.00063
+Epoch 44/50 Train loss=1.4920, acc=0.4655 Val loss=1.4249, acc=0.4932 lr=0.00063
+Epoch 45/50 Train loss=1.4897, acc=0.4663 Val loss=1.4217, acc=0.4936 lr=0.00063
+Epoch 46/50 Train loss=1.4898, acc=0.4664 Val loss=1.4214, acc=0.4936 lr=0.00063
+Epoch 47/50 Train loss=1.4874, acc=0.4668 Val loss=1.4218, acc=0.4953 lr=0.00063
+Epoch 48/50 Train loss=1.4866, acc=0.4684 Val loss=1.4192, acc=0.4943 lr=0.00063
+Epoch 49/50 Train loss=1.4854, acc=0.4663 Val loss=1.4192, acc=0.4944 lr=0.00063
+Epoch 50/50 Train loss=1.4871, acc=0.4677 Val loss=1.4175, acc=0.4958 lr=0.00031
+Held-out TEST set metrics -> acc:0.4732 prec:0.4810 rec:0.4732 f1:0.4681
+Confusion matrix (test):
+[[5177  328  610  202  339   50  132  279 1386  497]
+ [ 326 4689  205  437  240   47  276  270  773 1737]
+ [ 638  173 3478 1173 1087  322 1187  422  408  112]
+ [  70  136  804 4126  913  661 1347  456  310  177]
+ [ 312  127  975 1136 3455  279 1049 1091  408  168]
+ [ 137  132  970 3021 1101 1445  864  809  350  171]
+ [  42  120  768 1356  638   94 5595  144  148   95]
+ [ 206   96  423  933 1236  319  231 5020  255  281]
+ [ 831  484  445  492  401   62  207  238 5252  588]
+ [ 427 1755  217  433  248   57  257  499  758 4349]]

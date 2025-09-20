@@ -1,0 +1,33 @@
+{
+  "os":  "macOS-15.2-arm64-arm-64bit",
+  "python":  "CPython 3.9.21",
+  "startedAt":  "2025-09-19T17:34:01.675008Z",
+  "program":  "Prosit1.ipynb",
+  "codePath":  "Prosit1.ipynb",
+  "codePathLocal":  "Prosit1.ipynb",
+  "email":  "innocent.ics.2025@gmail.com",
+  "root":  "/Users/innocentchikwanda/Desktop/Grad School/Deep Learning/Prosit1",
+  "host":  "Innocents-MacBook-Air.local",
+  "executable":  "/Users/innocentchikwanda/miniconda3/envs/d2l/bin/python",
+  "cpu_count":  8,
+  "cpu_count_logical":  8,
+  "disk":  {
+    "/":  {
+      "total":  "494384795648",
+      "used":  "325040676864"
+    }
+  },
+  "memory":  {
+    "total":  "25769803776"
+  },
+  "apple":  {
+    "name":  "Apple M2",
+    "ecpuCores":  4,
+    "pcpuCores":  4,
+    "gpuCores":  10,
+    "memoryGb":  24,
+    "swapTotalBytes":  "4294967296",
+    "ramTotalBytes":  "25769803776"
+  },
+  "writerId":  "e70d00nkbczg4zgzzsntaycn40y40r6g"
+}

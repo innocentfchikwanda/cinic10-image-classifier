@@ -1,0 +1,68 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# Only exclude very large dataset image files to keep repo manageable
+# (Keep dataset structure files like README.md, csv files, etc.)
+data/train/**/*.jpg
+data/train/**/*.jpeg
+data/train/**/*.png
+data/valid/**/*.jpg
+data/valid/**/*.jpeg  
+data/valid/**/*.png
+data/test/**/*.jpg
+data/test/**/*.jpeg
+data/test/**/*.png
+
+# Keep model files but exclude very large ones (>100MB)
+# *.pth files will be included unless they're huge
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride

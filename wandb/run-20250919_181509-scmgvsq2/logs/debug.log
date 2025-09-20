@@ -1,0 +1,19 @@
+2025-09-19 18:15:09,812 INFO    MainThread:92502 [wandb_init.py:setup_run_log_directory():686] Logging user logs to /Users/innocentchikwanda/Desktop/Grad School/Deep Learning/Prosit1/wandb/run-20250919_181509-scmgvsq2/logs/debug.log
+2025-09-19 18:15:09,812 INFO    MainThread:92502 [wandb_init.py:setup_run_log_directory():687] Logging internal logs to /Users/innocentchikwanda/Desktop/Grad School/Deep Learning/Prosit1/wandb/run-20250919_181509-scmgvsq2/logs/debug-internal.log
+2025-09-19 18:15:09,812 INFO    MainThread:92502 [wandb_init.py:monkeypatch_ipython():605] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x30a806ac0>
+2025-09-19 18:15:09,812 INFO    MainThread:92502 [wandb_init.py:init():813] calling init triggers
+2025-09-19 18:15:09,812 INFO    MainThread:92502 [wandb_init.py:init():818] wandb.init called with sweep_config: {}
+config: {'lr': 0.01, 'weight_decay': 0.0, 'momentum': 0.9, 'epochs': 50, 'l1_lambda': 0.0, 'patience': 8, 'batch_size': 64, 'model': 'FeedForwardMLP', 'hidden_sizes': [2048, 1024, 512, 256], 'dropout': 0.5, 'phase': 'final_combined', '_wandb': {}}
+2025-09-19 18:15:09,812 INFO    MainThread:92502 [wandb_init.py:init():861] starting backend
+2025-09-19 18:15:09,812 INFO    MainThread:92502 [wandb_init.py:init():864] sending inform_init request
+2025-09-19 18:15:09,813 INFO    MainThread:92502 [wandb_init.py:init():872] backend started and connected
+2025-09-19 18:15:09,820 INFO    MainThread:92502 [wandb_run.py:_label_probe_notebook():1330] probe notebook
+2025-09-19 18:15:09,821 INFO    MainThread:92502 [wandb_init.py:init():942] updated telemetry
+2025-09-19 18:15:09,822 INFO    MainThread:92502 [wandb_init.py:init():966] communicating run to backend with 90.0 second timeout
+2025-09-19 18:15:10,680 INFO    MainThread:92502 [wandb_init.py:init():1017] starting run threads in backend
+2025-09-19 18:15:10,777 INFO    MainThread:92502 [wandb_run.py:_console_start():2506] atexit reg
+2025-09-19 18:15:10,778 INFO    MainThread:92502 [wandb_run.py:_redirect():2354] redirect: wrap_raw
+2025-09-19 18:15:10,778 INFO    MainThread:92502 [wandb_run.py:_redirect():2423] Wrapping output streams.
+2025-09-19 18:15:10,778 INFO    MainThread:92502 [wandb_run.py:_redirect():2446] Redirects installed.
+2025-09-19 18:15:10,778 INFO    MainThread:92502 [wandb_init.py:init():1057] run started, returning control to user process
+2025-09-19 18:15:22,824 INFO    MainThread:92502 [wandb_init.py:_post_run_cell_hook():575] [no run ID] resuming backend

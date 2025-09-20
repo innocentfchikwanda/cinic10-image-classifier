@@ -1,0 +1,20 @@
+Create a full-stack application for predicting the class of a 32x32 image from among 10 image classes. The model is the one in this folder: (feedforward_cinic10.pth). The application should have a user-friendly interface that allows users to upload an image and get a prediction. The application should be deployed on a web server and should be accessible from a web browser. 
+
+The application should have the following features:
+
+1. A user-friendly interface that allows users to upload an image and get a prediction.
+2. The application should be deployed on a web server and should be accessible from a web browser.
+3. The application should have a user-friendly interface that allows users to upload an image and get a prediction.
+4. The application should be deployed on a web server and should be accessible from a web browser.
+5. The application should have a modern interface (refer to the frontend files in this directory)
+6. The app should be optimized for fast response time and low latency
+7. Do local development and testing first, once that succeeds proceed to web deployment
+8. Use the frontend documented in the Elegant Image Classification App folder
+9. Keep a log of all the changes you have made and the plan
+
+Current steps:
+Review the whole project and restructure file order optimally
+Use the model.py to guide your understanding of how the model was trained
+
+
+

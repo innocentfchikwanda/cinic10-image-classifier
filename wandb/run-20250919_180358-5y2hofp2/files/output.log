@@ -1,0 +1,32 @@
+Epoch 1/20 Train loss=2.2405, acc=0.1586 Val loss=2.0944, acc=0.1954 lr=0.01000
+Epoch 2/20 Train loss=2.0852, acc=0.2104 Val loss=1.9922, acc=0.2584 lr=0.01000
+Epoch 3/20 Train loss=2.0153, acc=0.2424 Val loss=1.9638, acc=0.2643 lr=0.01000
+Epoch 4/20 Train loss=1.9680, acc=0.2663 Val loss=1.9034, acc=0.2958 lr=0.01000
+Epoch 5/20 Train loss=1.9433, acc=0.2858 Val loss=1.9110, acc=0.2920 lr=0.01000
+Epoch 6/20 Train loss=1.9248, acc=0.2933 Val loss=1.8830, acc=0.3073 lr=0.01000
+Epoch 7/20 Train loss=1.9142, acc=0.2913 Val loss=1.8533, acc=0.3173 lr=0.01000
+Epoch 8/20 Train loss=1.8970, acc=0.3059 Val loss=1.8498, acc=0.3286 lr=0.01000
+Epoch 9/20 Train loss=1.8751, acc=0.3088 Val loss=1.8480, acc=0.3221 lr=0.01000
+Epoch 10/20 Train loss=1.8680, acc=0.3074 Val loss=1.8455, acc=0.3227 lr=0.01000
+Epoch 11/20 Train loss=1.8635, acc=0.3201 Val loss=1.8257, acc=0.3373 lr=0.01000
+Epoch 12/20 Train loss=1.8387, acc=0.3261 Val loss=1.8275, acc=0.3321 lr=0.01000
+Epoch 13/20 Train loss=1.8427, acc=0.3204 Val loss=1.8128, acc=0.3409 lr=0.01000
+Epoch 14/20 Train loss=1.8268, acc=0.3309 Val loss=1.8140, acc=0.3391 lr=0.01000
+Epoch 15/20 Train loss=1.8174, acc=0.3352 Val loss=1.8071, acc=0.3383 lr=0.01000
+Epoch 16/20 Train loss=1.8095, acc=0.3339 Val loss=1.8033, acc=0.3446 lr=0.01000
+Epoch 17/20 Train loss=1.8024, acc=0.3392 Val loss=1.7842, acc=0.3504 lr=0.01000
+Epoch 18/20 Train loss=1.7917, acc=0.3423 Val loss=1.7940, acc=0.3429 lr=0.01000
+Epoch 19/20 Train loss=1.7950, acc=0.3437 Val loss=1.7923, acc=0.3477 lr=0.01000
+Epoch 20/20 Train loss=1.7806, acc=0.3432 Val loss=1.7880, acc=0.3524 lr=0.01000
+Small test set results -> acc: 0.3502222222222222 prec: 0.34832787130592163 rec: 0.3502222222222222 f1: 0.3262428685205737
+Confusion matrix (small test):
+[[559  72  47  12  12   4  25  40  87  47]
+ [ 61 468   9  26   7   5  59  41  67 125]
+ [162  48 258  78  20  21 208  40  45   7]
+ [ 31  65 129 164  14  83 284  61  30  12]
+ [ 81  56 197  70  62  26 242 129  25  19]
+ [ 37  73 150 143  25 129 220  78  33  20]
+ [ 21  47 120  71  20  21 598  28  11   8]
+ [ 68  63  78  58  54  36 108 389  17  30]
+ [291 105  58  26   9  26  52  44 258  53]
+ [ 99 257  20  26   8   5  55  63  84 267]]
