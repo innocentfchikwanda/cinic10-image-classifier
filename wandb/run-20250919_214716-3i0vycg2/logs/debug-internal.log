@@ -4,3 +4,6 @@
 {"time":"2025-09-19T21:47:17.173479Z","level":"INFO","msg":"sender: started","stream_id":"3i0vycg2"}
 {"time":"2025-09-19T21:47:17.173515Z","level":"INFO","msg":"handler: started","stream_id":"3i0vycg2"}
 {"time":"2025-09-19T21:47:17.173614Z","level":"INFO","msg":"writer: started","stream_id":"3i0vycg2"}
+{"time":"2025-09-20T02:43:44.789706Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/nimbus-neuron/cinic10-mlp/3i0vycg2/file_stream\": dial tcp 35.186.228.49:443: connect: operation timed out"}
+{"time":"2025-09-20T02:43:57.72079Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/nimbus-neuron/cinic10-mlp/3i0vycg2/file_stream\": dial tcp 35.186.228.49:443: connect: operation timed out"}
+{"time":"2025-09-20T02:43:57.944056Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 172.16.4.198:64464->35.186.228.49:443: read: operation timed out"}

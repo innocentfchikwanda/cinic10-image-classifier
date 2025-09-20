@@ -1,0 +1,37 @@
+{
+  "os":  "macOS-15.2-arm64-arm-64bit",
+  "python":  "CPython 3.9.21",
+  "startedAt":  "2025-09-20T03:20:55.414253Z",
+  "program":  "Prosit_again.ipynb",
+  "codePath":  "Prosit_again.ipynb",
+  "codePathLocal":  "Prosit_again.ipynb",
+  "git":  {
+    "remote":  "https://github.com/innocentfchikwanda/cinic10-image-classifier.git",
+    "commit":  "39b2462674af1c6e4c7ad42ad924ee7883be0bf7"
+  },
+  "email":  "innocent.ics.2025@gmail.com",
+  "root":  "/Users/innocentchikwanda/Desktop/Grad School/Deep Learning/Prosit1",
+  "host":  "Innocents-MacBook-Air.local",
+  "executable":  "/Users/innocentchikwanda/miniconda3/envs/d2l/bin/python",
+  "cpu_count":  8,
+  "cpu_count_logical":  8,
+  "disk":  {
+    "/":  {
+      "total":  "494384795648",
+      "used":  "323762520064"
+    }
+  },
+  "memory":  {
+    "total":  "25769803776"
+  },
+  "apple":  {
+    "name":  "Apple M2",
+    "ecpuCores":  4,
+    "pcpuCores":  4,
+    "gpuCores":  10,
+    "memoryGb":  24,
+    "swapTotalBytes":  "3221225472",
+    "ramTotalBytes":  "25769803776"
+  },
+  "writerId":  "ubszxdg4w1b25d5m0opsr4oqlnnmhod5"
+}
