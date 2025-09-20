@@ -48,22 +48,30 @@ CHECKPOINT_PATH = os.path.join(os.path.dirname(__file__), "feedforward_cinic10.p
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Initialize model at import time
-model = FeedforwardNet(num_classes=len(CLASSES)).to(DEVICE)
+model = None
+model_loaded = False
 
-# Load the model weights
-if os.path.exists(CHECKPOINT_PATH):
-    try:
+try:
+    model = FeedforwardNet(num_classes=len(CLASSES)).to(DEVICE)
+    
+    # Load the model checkpoint
+    if os.path.exists(CHECKPOINT_PATH):
         checkpoint = torch.load(CHECKPOINT_PATH, map_location=DEVICE)
-        # The checkpoint is a direct state_dict (OrderedDict)
         model.load_state_dict(checkpoint)
-        print(f"Successfully loaded model from {CHECKPOINT_PATH}")
-    except Exception as e:
-        print(f"Error loading model: {e}")
-        print("Initializing model with random weights")
-else:
-    print(f"Warning: Checkpoint not found at {CHECKPOINT_PATH}. Using random weights.")
-
-model.eval()
+        model.eval()
+        model_loaded = True
+        print(f"✅ Model loaded successfully from {CHECKPOINT_PATH}")
+    else:
+        print(f"❌ Model checkpoint not found at {CHECKPOINT_PATH}")
+        print("Available files:", os.listdir(os.path.dirname(CHECKPOINT_PATH)))
+        model = None
+        
+except Exception as e:
+    print(f"❌ Error initializing model: {e}")
+    import traceback
+    traceback.print_exc()
+    model = None
+    print(f"Warning: Model initialization failed.")
 
 # Preprocessing consistent with the training script
 PREPROCESS = T.Compose([
@@ -150,19 +158,15 @@ async def root():
         )
 
 @app.get("/api/health")
-async def health() -> Dict[str, Any]:
+async def health():
     return {
-        "status": "ok",
-        "device": str(DEVICE),
+        "status": "ok" if model is not None else "warning",
+        "message": f"{APP_NAME} is running",
         "model_loaded": model is not None,
-        "num_classes": len(CLASSES),
-        "model_architecture": "FeedforwardNet",
-        "checkpoint_loaded": os.path.exists(CHECKPOINT_PATH),
-        "endpoints": {
-            "docs": "/api/docs",
-            "predict": "/api/predict",
-            "classes": "/api/classes"
-        }
+        "device": str(DEVICE),
+        "classes": len(CLASSES),
+        "checkpoint_path": CHECKPOINT_PATH,
+        "checkpoint_exists": os.path.exists(CHECKPOINT_PATH)
     }
 
 
@@ -175,6 +179,10 @@ async def classes() -> Dict[str, List[str]]:
 async def predict(file: UploadFile = File(...)) -> Dict[str, Any]:
     import time
     start_time = time.time()
+    
+    # Check if model is loaded
+    if model is None:
+        raise HTTPException(status_code=503, detail="Model not loaded. Please check server logs.")
     
     if file.content_type is None or not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="Please upload an image file.")
@@ -230,13 +238,24 @@ async def predict(file: UploadFile = File(...)) -> Dict[str, Any]:
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))
-    print(f"Starting server on http://localhost:{port}")
-    print(f"API documentation available at http://localhost:{port}/api/docs")
-    print(f"Frontend should be available at http://localhost:{port}")
-    uvicorn.run(
-        "server:app",
-        host="0.0.0.0",
-        port=port,
-        reload=False,
-        workers=1
-    )
+    print(f"Starting server on http://0.0.0.0:{port}")
+    print(f"API documentation available at http://0.0.0.0:{port}/api/docs")
+    print(f"Model loaded: {model is not None}")
+    print(f"Device: {DEVICE}")
+    print(f"Checkpoint path: {CHECKPOINT_PATH}")
+    print(f"Checkpoint exists: {os.path.exists(CHECKPOINT_PATH)}")
+    
+    try:
+        uvicorn.run(
+            app,  # Use app directly instead of string
+            host="0.0.0.0",
+            port=port,
+            reload=False,
+            workers=1,
+            timeout_keep_alive=30,
+            access_log=True
+        )
+    except Exception as e:
+        print(f"Failed to start server: {e}")
+        import traceback
+        traceback.print_exc()
